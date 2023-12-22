@@ -27,10 +27,8 @@
                     <button class="btn btn-outline-success" type="button" onclick="search();HapticOn();" data-bs-toggle="modal"
                         data-bs-target="#exampleModal">Search</button>
                 
-                        <i class="fa-solid fa-user position-relative mx-3">
-                            <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-success" id="icon-user">
-                                
-                        </span>
+                        <i class="fa-solid fa-user position-relative mx-3" data-bs-toggle="modal" data-bs-target="#user-sign-in-modal">
+                            <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-success" id="icon-user"></span>
                         </i>
 
                         <i class="fa-solid fa-cart-shopping position-relative mx-2"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
@@ -98,6 +96,51 @@
         </div>
     </div>
     </div>
+
+
+    <!-- USER SIGN-IN MODAL -->
+  <div class="modal fade" id="user-sign-in-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="user-sign-in-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 bg-dark text-light" id="user-sign-in-modal-label" style="width: 50%; border-radius: 4px; padding: 4px 19px;" onclick="HapticOn()">SIGN IN</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="HapticOn()"></button>
+        </div>
+        <div class="modal-body">
+
+            <form id="login-form">
+                <div class="mb-3">
+                  <label for="InputEmail1" class="form-label" onclick="HapticOn()">Email address</label>
+                  <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" onchange="HapticOn()">
+                  <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                  <label for="InputPassword1" class="form-label" onclick="HapticOn()">Password</label>
+                  <input type="password" class="form-control" id="InputPassword1" onchange="HapticOn()">
+                </div>
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1" onclick="HapticOn()">
+                  <label class="form-check-label" for="exampleCheck1" onclick="HapticOn()">Remember Me</label>
+                </div>
+                <div class="mb-3 form-check" style="border-radius: 3px;">
+                    <span class="btn btn-link text-danger" style="cursor: pointer; font-size: 14px;" onclick="HapticOn(); DisplayRegisterForm();">Haven't created an account, Click here to CREATE ACCOUNT</span>
+                </div>
+                <button type="submit" class="btn btn-dark" onclick="HapticOn()">LOG IN</button>
+              </form>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="HapticOn()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
 
     <!-- footer  -->
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top bg-dark text-light">
