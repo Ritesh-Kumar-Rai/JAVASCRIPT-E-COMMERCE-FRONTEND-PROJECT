@@ -51,11 +51,12 @@ DisplayLoginForm = () => {
         <div class="formcontrol mb-3">
             <label for="InputEmail1" class="form-label" onclick="HapticOn()">Email address</label>
             <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" onchange="HapticOn()">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            <span id="emailHelp" class="form-text">We'll never share your email with anyone else.</span>
         </div>
         <div class="formcontrol mb-3">
             <label for="InputPassword1" class="form-label" onclick="HapticOn()">Password</label>
-            <input type="password" class="form-control" id="InputPassword1" onchange="HapticOn()">
+            <input type="password" class="form-control" id="InputPassword1" aria-describedby="LoginPasswordHelp" onchange="HapticOn()">
+            <span id="LoginPasswordHelp" class="form-text text-danger"></span>
         </div>
         <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1" onclick="HapticOn()">
@@ -68,6 +69,8 @@ DisplayLoginForm = () => {
         <span class="btn btn-link text-danger" style="cursor: pointer; font-size: 14px;" onclick="HapticOn(); DisplayRegisterForm();">Haven't created an account, Click here to CREATE ACCOUNT</span>
     </div>
     `;
+
+    scanForLoginFormAvailability();
 }
 
 // function which is used to validate email
@@ -153,6 +156,30 @@ function validateRegisterFormData(username,email,password,cpassword,Register_for
     
 }
 
+// function which is used to validate form data
+function validateLoginFormData(email, password, Login_form){
+        let emailValue = email.value.trim();
+        let passwordValue = password.value.trim();
+
+        if(emailValue === ""){
+            displayError(email, "Email must not be empty!");
+        }else if(!validateEmail(emailValue)){
+            displayError(email, "Oops! your email id is incorrect");
+        }else{
+            displaySuccess(email);
+        }
+
+        const isPasswordCorrect = validatePassword(passwordValue); 
+
+        if(isPasswordCorrect !== "Password is valid."){
+            displayError(password, isPasswordCorrect);
+        }else{
+            displaySuccess(password);
+        }
+
+        finalizeLoginSuccess(Login_form);
+}
+
 
 function displayError(inputElement, msg){
         let parentElem = inputElement.parentElement;
@@ -169,12 +196,25 @@ function displaySuccess(inputElement){
         span.innerText = "";
 }
 
-function showAlert(count, totalElemOfRegisterForm, msg){
-        console.log("count : "+count+" and total :"+totalElemOfRegisterForm)
-    if(count.length === totalElemOfRegisterForm){
-        swal("Good job!", msg, "success");
+function showAlert(count, total, msg, type){
 
+    if(type === "register"){
+        console.log("Register count : "+count+" and total :"+total)
+        if(count.length === total){
+            swal("Good job!", msg, "success");
+            return true;
+        }
+    }else if(type === "login"){
+        console.log("Login count :"+count+" and total : "+total);
+        if(count === total){
+            swal("Wow!", msg, "success");
+            return true;
+        }
     }
+    
+    
+    swal("Oops!", "Check your device is any game is running in the background...", "error");
+    return false;
 }
 
 // function to check is the total elements of register form are valid or not
@@ -186,7 +226,7 @@ function finalizeRegisterSuccess(Register_form){
 
             if(Register_form[i].className === "form-control is-valid"){
                 count.push(i);
-                showAlert(count,totalElemOfRegisterForm, 'Registration Completed!');
+                showAlert(count,totalElemOfRegisterForm, 'Registration Completed!', 'register');
             }else{
                 return false;
             }
@@ -194,28 +234,57 @@ function finalizeRegisterSuccess(Register_form){
     }
 }
 
+function finalizeLoginSuccess(Login_form){
+    
+    let LoginInputTag = Login_form.querySelectorAll('.form-control');
+    let totalInputElem = LoginInputTag.length-1;
+    
+    for(let i=0; i < LoginInputTag.length; i++){
+        if(LoginInputTag[i].className === "form-control is-valid"){
+            let count = 0 + i;
+            console.log(i);
+            showAlert(count, totalInputElem,"Login Successfull!",'login');
+        }
+    }
+
+}
 
 // function to scan and get html document of Register form after setting of register form 
 function scanForRegisterFormAvailability(){
-
+    
     const Register_form = document.getElementById('register-form');
     
     // adding event listener to Register_form
     Register_form.addEventListener('submit', (event)=>{
         event.preventDefault();
-
+        
         let username = document.getElementById('InputUsernameforRegister');
         let email = document.getElementById('InputEmailforRegister');
         let password = document.getElementById('InputPasswordforRegister');
         let cpassword = document.getElementById('InputConfirmPasswordforRegister');
-
+        
         validateRegisterFormData(username,email,password,cpassword,Register_form); // call the function which perform validation on register form data, and finally register-form tag for last operation
     });
-
-
+    
+    
 } // why this function, because of error like fetching form element before setting it
 
 
 
+// function to scan and get html document of Register form after setting of register form 
+function scanForLoginFormAvailability(){
+
+    const Login_form = document.getElementById('login-form');
+    
+    Login_form.addEventListener('submit', (event)=>{
+        event.preventDefault();
+        
+        let email = document.getElementById('InputEmail1');
+        let password = document.getElementById('InputPassword1');
+        
+        validateLoginFormData(email,password, Login_form);
+    });
+
+} // why this function, because when i am adding and changing the modal-body forms dynamically it causes eventListener failing to work
 
 
