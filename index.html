@@ -112,17 +112,18 @@
                 <div class="formcontrol mb-3">
                   <label for="InputEmail1" class="form-label" onclick="HapticOn()">Email address</label>
                   <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" onchange="HapticOn()">
-                  <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                  <span id="emailHelp" class="form-text">We'll never share your email with anyone else.</span>
                 </div>
                 <div class="formcontrol mb-3">
                   <label for="InputPassword1" class="form-label" onclick="HapticOn()">Password</label>
-                  <input type="password" class="form-control" id="InputPassword1" onchange="HapticOn()">
+                  <input type="password" class="form-control" id="InputPassword1" aria-describedby="LoginPasswordHelp" onchange="HapticOn()">
+                  <span id="LoginPasswordHelp" class="form-text text-danger"></span>
                 </div>
                 <div class="mb-3 form-check">
                   <input type="checkbox" class="form-check-input" id="exampleCheck1" onclick="HapticOn()">
                   <label class="form-check-label" for="exampleCheck1" onclick="HapticOn()">Remember Me</label>
                 </div>
-                <button type="submit" class="btn btn-dark" onclick="HapticOn()">LOG IN</button>
+                <button type="submit" class="btn btn-dark" onclick="HapticOn(); scanForLoginFormAvailability()">LOG IN</button>
             </form>
 
             <div class="mb-3 form-check mt-3" style="border-radius: 3px;">
