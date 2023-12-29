@@ -14,6 +14,7 @@
     
     <script src="scripts/product_datas.js"></script>
     <script src="scripts/users.js"></script>
+    
 </head>
 
 <body>
@@ -27,10 +28,18 @@
                     <button class="btn btn-outline-success" type="button" onclick="search();HapticOn();" data-bs-toggle="modal"
                         data-bs-target="#exampleModal">Search</button>
                 
-                        <i class="fa-solid fa-user position-relative mx-3" data-bs-toggle="modal" data-bs-target="#user-sign-in-modal">
+                    
+                        <i class="fa-solid fa-user position-relative mx-3" id="user-icon-setting" data-bs-toggle="modal" data-bs-target="#user-sign-in-modal" onclick="HapticOn()">
                             <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-success" id="icon-user"></span>
+                            <div id="pakToolTip" onmouseover="OnBLUR()" onmouseleave="OffBLUR()">
+                                <ul>
+                                    <li id="tooltipUsernaam">name</li>
+                                    <li onclick="SignOut()">Sign Out</li>
+                                </ul>
+                            </div>
                         </i>
-
+                      
+                        
                         <i class="fa-solid fa-cart-shopping position-relative mx-2"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
                         aria-controls="offcanvasRight" onclick="HapticOn()">
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark text-light" id="icon-font">
@@ -43,7 +52,6 @@
         <span class="mt-0" id="showAlert"></span>
     </main>
     <span id="space-for-modal"></span>
-
 
     <h3 class="mt-5 mx-5" onclick="HapticOn()">Products : </h3>
     <hr>
@@ -297,6 +305,7 @@
     <script src="scripts/display_modal.js"></script>
     <script src="scripts/manage_form_data.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="scripts/Check_session_and_cookie.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     
