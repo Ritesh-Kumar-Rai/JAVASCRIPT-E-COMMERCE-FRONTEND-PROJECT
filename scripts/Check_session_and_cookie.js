@@ -1,6 +1,30 @@
 (()=>{
+    let isCookieAvailable = getCookie('EcommerceUserData');
+    if(isCookieAvailable){
+        console.log(isCookieAvailable.username);
+        sessionStorage.setItem("e-comm_name", isCookieAvailable["username"]);
+    }
     check_for_session();
 })();
+
+
+// function which finds the cookie of specific name
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return JSON.parse(c.substring(name.length, c.length));
+      }
+    }
+    return "";
+}
+
 
 var session_name = null;
 function check_for_session(){
@@ -16,7 +40,9 @@ function check_for_session(){
         document.getElementById('icon-user').style.visibility = 'visible';
         document.getElementById('tooltipUsernaam').innerText = session_name;
     }
+   
 }
+console.log(session_name)
 
 function OnBLUR(){
     document.getElementById('pakToolTip').style.visibility = 'visible';
@@ -41,3 +67,20 @@ function SignOut(){
         OffBLUR();
 }
 
+
+
+check_for_session_before_checkout = () =>{
+
+    const isThere = sessionStorage.getItem('e-comm_name');
+
+    if(isThere && extended_cart.length > 0){
+
+        swal('Thank You',`Order completed successfully!`, "success");
+    }else if(extended_cart.length === 0 ){
+        swal(`Cart is Empty!`, 'Add atleast 1 item', "error");
+        
+    }else{
+        swal('Oops!', `You First need to Login before purchase!`,"warning");
+
+    }
+}
